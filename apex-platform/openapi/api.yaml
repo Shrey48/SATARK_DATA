@@ -1,0 +1,48 @@
+openapi: "3.0.3"
+info:
+  title: Apex Commerce API
+  version: "2.1.0"
+  description: Core API for payment processing and inventory management
+
+paths:
+  /payments:
+    post:
+      summary: Process a payment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PaymentRequest"
+      responses:
+        "200":
+          description: Payment processed
+
+  /inventory/{sku}:
+    get:
+      summary: Get inventory for a SKU
+      parameters:
+        - name: sku
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Inventory item
+
+components:
+  schemas:
+    PaymentRequest:
+      type: object
+      properties:
+        payment_id:
+          type: string
+        order_id:
+          type: string
+        amount_cents:
+          type: integer
+        currency:
+          type: string
+        method:
+          type: string
+          enum: [card, wallet, bank_transfer]

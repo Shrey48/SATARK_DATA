@@ -1,0 +1,52 @@
+{
+  "Roles": [
+    {
+      "RoleName": "apex-trading-admin-role",
+      "Arn": "arn:aws:iam::441923857612:role/apex-trading-admin-role",
+      "Path": "/",
+      "CreateDate": "2024-09-01T10:00:00Z",
+      "AttachedManagedPolicies": [
+        {
+          "PolicyName": "AdministratorAccess",
+          "PolicyArn": "arn:aws:iam::aws:policy/AdministratorAccess"
+        }
+      ]
+    },
+    {
+      "RoleName": "apex-trading-readonly-role",
+      "Arn": "arn:aws:iam::441923857612:role/apex-trading-readonly-role",
+      "Path": "/",
+      "CreateDate": "2024-09-01T10:05:00Z",
+      "AttachedManagedPolicies": [
+        {
+          "PolicyName": "AWSLambdaBasicExecutionRole",
+          "PolicyArn": "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+        }
+      ]
+    },
+    {
+      "RoleName": "apex-payments-role",
+      "Arn": "arn:aws:iam::441923857612:role/apex-payments-role",
+      "Path": "/",
+      "CreateDate": "2024-09-01T10:10:00Z",
+      "AttachedManagedPolicies": [
+        {
+          "PolicyName": "AWSLambdaBasicExecutionRole",
+          "PolicyArn": "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+        }
+      ]
+    },
+    {
+      "RoleName": "apex-compliance-readonly-role",
+      "Arn": "arn:aws:iam::441923857612:role/apex-compliance-readonly-role",
+      "Path": "/",
+      "CreateDate": "2024-09-01T10:15:00Z",
+      "AttachedManagedPolicies": [
+        {
+          "PolicyName": "ReadOnlyAccess",
+          "PolicyArn": "arn:aws:iam::aws:policy/ReadOnlyAccess"
+        }
+      ]
+    }
+  ]
+}

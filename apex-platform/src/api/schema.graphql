@@ -1,0 +1,52 @@
+type Query {
+  payment(id: ID!): Payment
+  inventory(sku: String!): InventoryItem
+  order(id: ID!): Order
+}
+
+type Mutation {
+  processPayment(input: PaymentInput!): PaymentResult
+  reserveInventory(sku: String!, quantity: Int!): Boolean
+}
+
+type Payment {
+  id: ID!
+  orderId: String!
+  amountCents: Int!
+  currency: String!
+  status: PaymentStatus!
+}
+
+enum PaymentStatus {
+  PENDING
+  AUTHORIZED
+  CAPTURED
+  FAILED
+  REFUNDED
+}
+
+type InventoryItem {
+  sku: String!
+  quantity: Int!
+  reservedQuantity: Int!
+}
+
+type Order {
+  id: ID!
+  customerId: String!
+  totalCents: Int!
+  status: String!
+}
+
+input PaymentInput {
+  orderId: String!
+  amountCents: Int!
+  currency: String!
+  method: String!
+}
+
+type PaymentResult {
+  success: Boolean!
+  paymentId: String!
+  message: String!
+}

@@ -1,0 +1,60 @@
+{
+  "cves": [
+    {
+      "canonical_id": "CVE-2021-44228",
+      "epss_score": 0.975,
+      "kev_listed": true,
+      "exploit_maturity": "weaponized",
+      "cvss_v3": 10.0,
+      "description": "Log4Shell: JNDI injection in Apache Log4j2 versions 2.0-beta9 through 2.14.1. Attacker-controlled log messages trigger outbound LDAP connections and RCE.",
+      "affects_packages": ["org.apache.logging.log4j:log4j-core:2.14.1"],
+      "targets_entity_patterns": [
+        "apex-compliance::class.src.main.java.com.apex.compliance.controller.ReportController"
+      ]
+    },
+    {
+      "canonical_id": "CVE-2022-22965",
+      "epss_score": 0.974,
+      "kev_listed": true,
+      "exploit_maturity": "weaponized",
+      "cvss_v3": 9.8,
+      "description": "Spring4Shell: Spring Framework RCE via DataBinder and class property access in Spring MVC apps deployed to Tomcat. Affects Spring Framework < 5.3.18.",
+      "affects_packages": ["org.springframework.boot:spring-boot-starter-web:2.6.3"],
+      "targets_entity_patterns": [
+        "apex-compliance::class.src.main.java.com.apex.compliance.controller.ReportController"
+      ]
+    },
+    {
+      "canonical_id": "CVE-2019-14379",
+      "epss_score": 0.082,
+      "kev_listed": false,
+      "exploit_maturity": "poc",
+      "cvss_v3": 9.8,
+      "description": "Jackson Databind deserialization in versions < 2.9.10. Default typing enablement allows arbitrary code execution via crafted input.",
+      "affects_packages": ["com.fasterxml.jackson.core:jackson-databind:2.9.8"],
+      "targets_entity_patterns": [
+        "apex-compliance::class.src.main.java.com.apex.compliance.controller.ReportController.parseXmlReport"
+      ]
+    }
+  ],
+  "threat_actors": [
+    {
+      "actor_id": "LAZARUS-GROUP",
+      "canonical_ids_targeted": ["CVE-2021-44228"],
+      "activity_status": "active",
+      "description": "North Korean state-sponsored APT. Targets financial institutions and cryptocurrency exchanges. Known to weaponise Log4Shell for initial access in fintech and banking environments."
+    },
+    {
+      "actor_id": "FIN7",
+      "canonical_ids_targeted": ["CVE-2022-22965"],
+      "activity_status": "active",
+      "description": "Financially motivated cybercriminal group. Targets payment processing systems, POS infrastructure, and financial APIs. Has exploited Spring4Shell in targeted campaigns."
+    },
+    {
+      "actor_id": "APT41",
+      "canonical_ids_targeted": ["CVE-2019-14379"],
+      "activity_status": "recent",
+      "description": "Chinese state-sponsored group with dual espionage and financial crime mandate. Targets fintech companies for IP theft and payment data."
+    }
+  ]
+}

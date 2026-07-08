@@ -1,0 +1,3 @@
+asset_id: apex-aws-prod
+connector: aws
+tenant: prototype

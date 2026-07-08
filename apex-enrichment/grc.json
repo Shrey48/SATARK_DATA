@@ -1,0 +1,57 @@
+{
+  "compliance_rules": [
+    {
+      "rule_id": "PCI-DSS-6.3.2",
+      "framework": "PCI-DSS",
+      "severity_if_violated": "critical",
+      "description": "Maintain an inventory of all bespoke and custom software, and ensure software components are protected from attack. All code handling cardholder data must be reviewed and tested for vulnerabilities.",
+      "governs_entity_patterns": [
+        "apex-payments::func.src.payment_processor.ts.executeRawPaymentQuery",
+        "apex-payments::func.src.payment_processor.ts.chargeCard",
+        "apex-payments::func.src.routes.ts.processPayment",
+        "apex-payments::func.src.routes.ts.adminOverride"
+      ]
+    },
+    {
+      "rule_id": "PCI-DSS-10.3",
+      "framework": "PCI-DSS",
+      "severity_if_violated": "high",
+      "description": "Protect audit logs from destruction and unauthorized modifications. All access to cardholder data must be logged.",
+      "governs_entity_patterns": [
+        "apex-trading::func.src.trading.analytics.execute_raw_query",
+        "apex-trading::func.src.trading.api.search_transactions"
+      ]
+    },
+    {
+      "rule_id": "SOC2-CC6.1",
+      "framework": "SOC2",
+      "severity_if_violated": "high",
+      "description": "Logical access security measures to protect against threats from sources outside the system boundary.",
+      "governs_entity_patterns": [
+        "apex-payments::func.src.middleware.ts.sanitizePaymentInput",
+        "apex-payments::func.src.middleware.ts.validateCardNumber",
+        "apex-trading::func.src.trading.validators.sanitize_transaction_id"
+      ]
+    },
+    {
+      "rule_id": "SOX-ITGC-A.4",
+      "framework": "SOX",
+      "severity_if_violated": "critical",
+      "description": "Financial reporting systems must have appropriate access controls. Administrative access to financial systems must be segregated and audited.",
+      "governs_entity_patterns": [
+        "apex-payments::func.src.routes.ts.adminOverride",
+        "apex-trading::func.src.trading.api.search_transactions"
+      ]
+    },
+    {
+      "rule_id": "GDPR-Art-32",
+      "framework": "GDPR",
+      "severity_if_violated": "high",
+      "description": "Appropriate technical measures for security of processing of personal data including transaction records.",
+      "governs_entity_patterns": [
+        "apex-trading::func.src.trading.analytics.analyze_transaction",
+        "apex-trading::func.src.trading.analytics.execute_raw_query"
+      ]
+    }
+  ]
+}

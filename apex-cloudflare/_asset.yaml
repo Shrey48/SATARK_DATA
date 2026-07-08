@@ -1,0 +1,3 @@
+asset_id: apex-cloudflare
+connector: cloudflare
+tenant: prototype
