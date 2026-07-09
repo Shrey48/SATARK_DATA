@@ -1,0 +1,64 @@
+{
+  "compliance_rules": [
+    {
+      "rule_id": "PCI-DSS-6.3.2",
+      "framework": "PCI-DSS",
+      "control_name": "Protect bespoke and custom software from attacks",
+      "severity_if_violated": "critical",
+      "description": "All code that handles cardholder data must be reviewed for vulnerabilities.",
+      "governs_entity_patterns": [
+        "submit_order",
+        "execute_raw_order",
+        "cancel_order",
+        "order-execution-api"
+      ]
+    },
+    {
+      "rule_id": "PCI-DSS-10.3",
+      "framework": "PCI-DSS",
+      "control_name": "Protect audit logs from destruction",
+      "severity_if_violated": "high",
+      "description": "All access to cardholder data must be logged and audit logs protected.",
+      "governs_entity_patterns": [
+        "write_order_audit",
+        "get_order_history"
+      ]
+    },
+    {
+      "rule_id": "SOX-ITGC-A4",
+      "framework": "SOX",
+      "control_name": "Financial reporting system access controls",
+      "severity_if_violated": "critical",
+      "description": "Administrative access to financial reporting systems must be segregated.",
+      "governs_entity_patterns": [
+        "generateComplianceReport",
+        "executeRawReport",
+        "executeRawQuery",
+        "compliance-reports"
+      ]
+    },
+    {
+      "rule_id": "FINRA-4370",
+      "framework": "FINRA",
+      "control_name": "Business continuity and order management",
+      "severity_if_violated": "high",
+      "description": "Broker-dealers must maintain business continuity plans for order execution systems.",
+      "governs_entity_patterns": [
+        "GetMarketData",
+        "QueryRawFeed",
+        "market-feeds"
+      ]
+    },
+    {
+      "rule_id": "GDPR-Art-32",
+      "framework": "GDPR",
+      "control_name": "Security of processing personal financial data",
+      "severity_if_violated": "high",
+      "description": "Appropriate technical measures for processing security of personal financial data.",
+      "governs_entity_patterns": [
+        "get_portfolio_data",
+        "get_order_by_id_safe"
+      ]
+    }
+  ]
+}

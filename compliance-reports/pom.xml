@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.meridian</groupId>
+  <artifactId>compliance-reports</artifactId>
+  <version>2.4.1</version>
+  <packaging>jar</packaging>
+
+  <dependencies>
+    <!-- CVE-2022-22965 target: Spring Framework 5.3.15 via 2.6.3 starter -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <version>2.6.3</version>
+    </dependency>
+
+    <!-- CVE-2021-44228 target: Log4Shell in log4j-core 2.14.1 -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.14.1</version>
+    </dependency>
+
+    <!-- CVE-2020-36518 / FasterXML unsafe deserialization -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.13.0</version>
+    </dependency>
+
+    <!-- AWS SDK for DynamoDB + S3 -->
+    <dependency>
+      <groupId>software.amazon.awssdk</groupId>
+      <artifactId>dynamodb</artifactId>
+      <version>2.21.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>software.amazon.awssdk</groupId>
+      <artifactId>s3</artifactId>
+      <version>2.21.0</version>
+    </dependency>
+  </dependencies>
+</project>

@@ -1,0 +1,3 @@
+asset_id: infosec-enrichment
+connector: enrichment
+tenant: prototype

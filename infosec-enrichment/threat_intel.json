@@ -1,0 +1,75 @@
+{
+  "cve_enrichment": [
+    {
+      "canonical_id": "CVE-2021-44228",
+      "cvss_v3_base": 10.0,
+      "epss_score": 0.975,
+      "kev_listed": true,
+      "exploit_maturity": "weaponized",
+      "description": "Log4Shell \u2014 JNDI injection in log4j-core 2.14.1. generateComplianceReport logs user-supplied period param. LAZARUS-GROUP actively exploiting against financial platforms.",
+      "affects_packages": [
+        "org.apache.logging.log4j:log4j-core:2.14.1"
+      ]
+    },
+    {
+      "canonical_id": "CVE-2022-22965",
+      "cvss_v3_base": 9.8,
+      "epss_score": 0.974,
+      "kev_listed": true,
+      "exploit_maturity": "weaponized",
+      "description": "Spring4Shell \u2014 Spring Framework DataBinder RCE. Affects compliance-reports via spring-boot-starter-web 2.6.3. FIN7 exploiting against financial APIs.",
+      "affects_packages": [
+        "org.springframework.boot:spring-boot-starter-web:2.6.3"
+      ]
+    },
+    {
+      "canonical_id": "CVE-2020-36518",
+      "cvss_v3_base": 7.5,
+      "epss_score": 0.082,
+      "kev_listed": false,
+      "exploit_maturity": "poc",
+      "description": "Jackson Databind 2.13.0 resource exhaustion via deeply nested arrays. EPSS=0.082 \u2014 low exploitation probability. APT29 observed using variants.",
+      "affects_packages": [
+        "com.fasterxml.jackson.core:jackson-databind:2.13.0"
+      ]
+    },
+    {
+      "canonical_id": "CVE-2023-29331",
+      "cvss_v3_base": 7.5,
+      "epss_score": 0.45,
+      "kev_listed": false,
+      "exploit_maturity": "poc",
+      "description": ".NET Core SignalR denial-of-service. Included to test CVE without matching library in this fixture \u2014 should not link to any library node.",
+      "affects_packages": []
+    }
+  ],
+  "threat_actors": [
+    {
+      "actor_id": "LAZARUS-GROUP",
+      "name": "Lazarus Group",
+      "activity_status": "active",
+      "canonical_ids_targeted": [
+        "CVE-2021-44228"
+      ],
+      "description": "North Korean state-sponsored APT targeting financial institutions and cryptocurrency platforms. Weaponised Log4Shell for initial access."
+    },
+    {
+      "actor_id": "FIN7",
+      "name": "FIN7",
+      "activity_status": "active",
+      "canonical_ids_targeted": [
+        "CVE-2022-22965"
+      ],
+      "description": "Financially motivated cybercriminal group targeting payment processors and financial APIs. Actively exploits Spring4Shell."
+    },
+    {
+      "actor_id": "APT29",
+      "name": "APT29 (Cozy Bear)",
+      "activity_status": "recent",
+      "canonical_ids_targeted": [
+        "CVE-2020-36518"
+      ],
+      "description": "Russian state-sponsored espionage group. Targets financial data for intelligence gathering. Activity_status=recent (not active)."
+    }
+  ]
+}

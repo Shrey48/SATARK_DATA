@@ -1,0 +1,31 @@
+{
+  "Functions": [
+    {
+      "FunctionName": "shipment-processor",
+      "FunctionArn": "arn:aws:lambda:us-east-1:884512773061:function:shipment-processor",
+      "Runtime": "python3.11",
+      "Role": "arn:aws:iam::884512773061:role/meridian-shipment-lambda-role",
+      "Handler": "src.shipments.tracker.handler",
+      "Timeout": 30,
+      "MemorySize": 256
+    },
+    {
+      "FunctionName": "notification-dispatcher",
+      "FunctionArn": "arn:aws:lambda:us-east-1:884512773061:function:notification-dispatcher",
+      "Runtime": "python3.11",
+      "Role": "arn:aws:iam::884512773061:role/meridian-notification-lambda-role",
+      "Handler": "src.notifications.dispatcher.handler",
+      "Timeout": 15,
+      "MemorySize": 128
+    },
+    {
+      "FunctionName": "shipment-archiver",
+      "FunctionArn": "arn:aws:lambda:us-east-1:884512773061:function:shipment-archiver",
+      "Runtime": "python3.11",
+      "Role": "arn:aws:iam::884512773061:role/meridian-shipment-lambda-role",
+      "Handler": "src.common.aws_clients.invoke_archiver",
+      "Timeout": 60,
+      "MemorySize": 512
+    }
+  ]
+}

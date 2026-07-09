@@ -1,7 +1,0 @@
-{
-  "Buckets": [
-    {"Name": "apex-trading-reports-prod", "CreationDate": "2024-09-01T08:00:00Z"},
-    {"Name": "apex-compliance-reports-prod", "CreationDate": "2024-09-01T08:05:00Z"},
-    {"Name": "apex-payments-archive-prod", "CreationDate": "2024-09-01T08:10:00Z"}
-  ]
-}

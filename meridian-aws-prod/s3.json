@@ -1,0 +1,16 @@
+{
+  "Buckets": [
+    {
+      "Name": "meridian-shipment-docs-prod",
+      "CreationDate": "2024-11-02T12:00:00Z"
+    },
+    {
+      "Name": "meridian-shipment-archive-prod",
+      "CreationDate": "2024-11-02T12:05:00Z"
+    },
+    {
+      "Name": "meridian-billing-invoices-prod",
+      "CreationDate": "2024-08-19T08:30:00Z"
+    }
+  ]
+}

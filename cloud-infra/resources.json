@@ -1,0 +1,95 @@
+{
+  "Functions": [
+    {
+      "FunctionName": "meridian-order-processor",
+      "FunctionArn": "arn:aws:lambda:us-east-1:887412563901:function:meridian-order-processor",
+      "Runtime": "python3.11",
+      "Role": "arn:aws:iam::887412563901:role/meridian-order-admin-role",
+      "Handler": "app.submit_order",
+      "Timeout": 15
+    },
+    {
+      "FunctionName": "meridian-portfolio-reader",
+      "FunctionArn": "arn:aws:lambda:us-east-1:887412563901:function:meridian-portfolio-reader",
+      "Runtime": "python3.11",
+      "Role": "arn:aws:iam::887412563901:role/meridian-market-feeds-role",
+      "Handler": "app.get_order_history",
+      "Timeout": 30
+    },
+    {
+      "FunctionName": "meridian-compliance-processor",
+      "FunctionArn": "arn:aws:lambda:us-east-1:887412563901:function:meridian-compliance-processor",
+      "Runtime": "java11",
+      "Role": "arn:aws:iam::887412563901:role/meridian-compliance-role",
+      "Handler": "com.meridian.compliance.controller.ComplianceController",
+      "Timeout": 60
+    }
+  ],
+  "Buckets": [
+    {
+      "Name": "meridian-audit-logs-prod",
+      "CreationDate": "2025-01-01T00:00:00Z"
+    },
+    {
+      "Name": "meridian-compliance-reports-prod",
+      "CreationDate": "2025-01-01T00:00:00Z"
+    },
+    {
+      "Name": "meridian-market-data-archive",
+      "CreationDate": "2025-01-01T00:00:00Z"
+    }
+  ],
+  "DynamoDBTables": [
+    {
+      "TableName": "meridian-orders-prod",
+      "TableArn": "arn:aws:dynamodb:us-east-1:887412563901:table/meridian-orders-prod",
+      "BillingMode": "PAY_PER_REQUEST"
+    },
+    {
+      "TableName": "meridian-compliance-records-prod",
+      "TableArn": "arn:aws:dynamodb:us-east-1:887412563901:table/meridian-compliance-records-prod",
+      "BillingMode": "PAY_PER_REQUEST"
+    },
+    {
+      "TableName": "meridian-market-feeds",
+      "TableArn": "arn:aws:dynamodb:us-east-1:887412563901:table/meridian-market-feeds",
+      "BillingMode": "PAY_PER_REQUEST"
+    }
+  ],
+  "SecurityGroups": [
+    {
+      "GroupId": "sg-0a1b2c3d4e5f6g7h",
+      "GroupName": "meridian-api-sg",
+      "Description": "API Gateway security group \u2014 HTTPS only",
+      "IpPermissions": [
+        {
+          "IpProtocol": "tcp",
+          "FromPort": 443,
+          "ToPort": 443,
+          "IpRanges": [
+            {
+              "CidrIp": "0.0.0.0/0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "GroupId": "sg-0b2c3d4e5f6g7h8i",
+      "GroupName": "meridian-bastion-sg",
+      "Description": "Bastion host \u2014 SSH open to world (SENSITIVE!)",
+      "IpPermissions": [
+        {
+          "IpProtocol": "tcp",
+          "FromPort": 22,
+          "ToPort": 22,
+          "IpRanges": [
+            {
+              "CidrIp": "0.0.0.0/0"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

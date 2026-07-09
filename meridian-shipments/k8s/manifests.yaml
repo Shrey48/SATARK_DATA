@@ -1,0 +1,116 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: shipment-tracker-sa
+  namespace: meridian
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::884512773061:role/meridian-shipment-lambda-role
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: notification-dispatcher-sa
+  namespace: meridian
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::884512773061:role/meridian-notification-lambda-role
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shipment-tracker
+  namespace: meridian
+  labels:
+    app: shipment-tracker
+    tier: backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: shipment-tracker
+  template:
+    metadata:
+      labels:
+        app: shipment-tracker
+        tier: backend
+    spec:
+      serviceAccountName: shipment-tracker-sa
+      containers:
+        - name: shipment-tracker
+          image: meridian/shipment-tracker:2.3.1
+          ports:
+            - containerPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notification-dispatcher
+  namespace: meridian
+  labels:
+    app: notification-dispatcher
+    tier: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: notification-dispatcher
+  template:
+    metadata:
+      labels:
+        app: notification-dispatcher
+        tier: backend
+    spec:
+      serviceAccountName: notification-dispatcher-sa
+      containers:
+        - name: notification-dispatcher
+          image: meridian/notification-dispatcher:1.8.0
+          ports:
+            - containerPort: 8081
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shipment-tracker-svc
+  namespace: meridian
+spec:
+  selector:
+    app: shipment-tracker
+  ports:
+    - port: 80
+      targetPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: notification-dispatcher-svc
+  namespace: meridian
+spec:
+  selector:
+    app: notification-dispatcher
+  ports:
+    - port: 80
+      targetPort: 8081
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: meridian-api-ingress
+  namespace: meridian
+spec:
+  rules:
+    - host: api.meridian.example.com
+      http:
+        paths:
+          - path: /shipments
+            pathType: Prefix
+            backend:
+              service:
+                name: shipment-tracker-svc
+                port:
+                  number: 80
+          - path: /notifications
+            pathType: Prefix
+            backend:
+              service:
+                name: notification-dispatcher-svc
+                port:
+                  number: 80

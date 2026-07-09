@@ -1,0 +1,233 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: order-execution-sa
+  namespace: meridian
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::887412563901:role/meridian-order-admin-role
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: market-feeds-sa
+  namespace: meridian
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::887412563901:role/meridian-market-feeds-role
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: client-portal-sa
+  namespace: meridian
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::887412563901:role/meridian-client-portal-role
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-execution-api
+  namespace: meridian
+  labels:
+    app: order-execution-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: order-execution-api
+  template:
+    metadata:
+      labels:
+        app: order-execution-api
+    spec:
+      serviceAccountName: order-execution-sa
+      containers:
+        - name: order-api
+          image: meridian/order-execution-api:3.0.0
+          ports:
+            - containerPort: 8080
+          env:
+            - name: ORDERS_TABLE
+              value: meridian-orders-prod
+            - name: AUDIT_BUCKET
+              value: meridian-audit-logs-prod
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: market-feeds-service
+  namespace: meridian
+  labels:
+    app: market-feeds-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: market-feeds-service
+  template:
+    metadata:
+      labels:
+        app: market-feeds-service
+    spec:
+      serviceAccountName: market-feeds-sa
+      containers:
+        - name: market-feeds
+          image: meridian/market-feeds:2.1.0
+          ports:
+            - containerPort: 9090
+          env:
+            - name: TABLE_NAME
+              value: meridian-market-feeds
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-portal-service
+  namespace: meridian
+  labels:
+    app: client-portal-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: client-portal-service
+  template:
+    metadata:
+      labels:
+        app: client-portal-service
+    spec:
+      serviceAccountName: client-portal-sa
+      containers:
+        - name: client-portal
+          image: meridian/client-portal:4.1.0
+          ports:
+            - containerPort: 3000
+---
+# compliance-reports is NOT in Ingress — internal service only
+# This is deliberate: Java/Spring vulnerabilities should score HIGH not CRITICAL
+# because D6=internal, not D6=internet-facing
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: compliance-reports-service
+  namespace: meridian
+  labels:
+    app: compliance-reports-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: compliance-reports-service
+  template:
+    metadata:
+      labels:
+        app: compliance-reports-service
+    spec:
+      containers:
+        - name: compliance
+          image: meridian/compliance-reports:2.4.1
+          ports:
+            - containerPort: 8081
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-execution-svc
+  namespace: meridian
+spec:
+  selector:
+    app: order-execution-api
+  ports:
+    - port: 80
+      targetPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: market-feeds-svc
+  namespace: meridian
+spec:
+  selector:
+    app: market-feeds-service
+  ports:
+    - port: 80
+      targetPort: 9090
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-portal-svc
+  namespace: meridian
+spec:
+  selector:
+    app: client-portal-service
+  ports:
+    - port: 80
+      targetPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: compliance-reports-svc
+  namespace: meridian
+spec:
+  selector:
+    app: compliance-reports-service
+  ports:
+    - port: 80
+      targetPort: 8081
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: meridian-api-ingress
+  namespace: meridian
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  rules:
+    - host: api.meridian-capital.example.com
+      http:
+        paths:
+          - path: /api/v1
+            pathType: Prefix
+            backend:
+              service:
+                name: order-execution-svc
+                port:
+                  number: 80
+          - path: /api/feeds
+            pathType: Prefix
+            backend:
+              service:
+                name: market-feeds-svc
+                port:
+                  number: 80
+          - path: /api/client
+            pathType: Prefix
+            backend:
+              service:
+                name: client-portal-svc
+                port:
+                  number: 80
+          # /internal/v2/compliance NOT routed — internal only
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: restrict-compliance-access
+  namespace: meridian
+spec:
+  podSelector:
+    matchLabels:
+      app: compliance-reports-service
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              role: internal-service
+      ports:
+        - protocol: TCP
+          port: 8081

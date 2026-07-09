@@ -1,0 +1,3 @@
+asset_id: compliance-reports
+connector: github
+tenant: prototype

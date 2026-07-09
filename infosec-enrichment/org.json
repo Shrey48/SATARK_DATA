@@ -1,0 +1,71 @@
+{
+  "business_units": [
+    {
+      "unit_id": "order-execution",
+      "name": "Order Execution",
+      "criticality": "critical",
+      "data_classification": "financial",
+      "description": "Owns real-time order submission, cancellation, and execution. PCI-DSS scope.",
+      "owns_entity_patterns": [
+        "submit_order",
+        "cancel_order",
+        "execute_raw_order",
+        "compute_portfolio_risk",
+        "order-execution-api"
+      ]
+    },
+    {
+      "unit_id": "market-data",
+      "name": "Market Data",
+      "criticality": "high",
+      "data_classification": "financial",
+      "description": "Owns real-time market feed ingestion, normalisation, and distribution.",
+      "owns_entity_patterns": [
+        "GetMarketData",
+        "GetFeedStatus",
+        "QueryRawFeed",
+        "GetFeedBySafe",
+        "market-feeds"
+      ]
+    },
+    {
+      "unit_id": "regulatory-compliance",
+      "name": "Regulatory Compliance",
+      "criticality": "high",
+      "data_classification": "financial",
+      "description": "Owns compliance reporting, regulatory uploads, and audit trails. SOX scope.",
+      "owns_entity_patterns": [
+        "generateComplianceReport",
+        "uploadRegulatoryReport",
+        "executeRawReport",
+        "compliance-reports"
+      ]
+    },
+    {
+      "unit_id": "client-services",
+      "name": "Client Services",
+      "criticality": "high",
+      "data_classification": "pii",
+      "description": "Owns client portal, portfolio access, and self-service admin.",
+      "owns_entity_patterns": [
+        "client-portal",
+        "sanitizePortfolioId",
+        "verifyToken"
+      ]
+    },
+    {
+      "unit_id": "platform-security",
+      "name": "Platform Security",
+      "criticality": "high",
+      "data_classification": "internal",
+      "description": "Owns input sanitization, auth middleware, and security controls across all services.",
+      "owns_entity_patterns": [
+        "sanitize_order_id",
+        "sanitize_symbol",
+        "validate_token",
+        "SanitizeSymbol",
+        "ValidateFeedID"
+      ]
+    }
+  ]
+}

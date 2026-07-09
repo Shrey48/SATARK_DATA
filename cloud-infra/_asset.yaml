@@ -1,0 +1,3 @@
+asset_id: cloud-infra
+connector: aws
+tenant: prototype

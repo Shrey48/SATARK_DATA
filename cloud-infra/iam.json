@@ -1,0 +1,110 @@
+{
+  "Roles": [
+    {
+      "RoleName": "meridian-order-admin-role",
+      "Arn": "arn:aws:iam::887412563901:role/meridian-order-admin-role",
+      "Path": "/",
+      "CreateDate": "2025-01-15T08:00:00Z",
+      "AttachedManagedPolicies": [
+        {
+          "PolicyName": "AdministratorAccess",
+          "PolicyArn": "arn:aws:iam::aws:policy/AdministratorAccess"
+        }
+      ],
+      "AssumeRolePolicyDocument": {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Principal": {
+              "Service": "lambda.amazonaws.com"
+            },
+            "Action": "sts:AssumeRole"
+          }
+        ]
+      }
+    },
+    {
+      "RoleName": "meridian-market-feeds-role",
+      "Arn": "arn:aws:iam::887412563901:role/meridian-market-feeds-role",
+      "Path": "/",
+      "CreateDate": "2025-01-15T08:05:00Z",
+      "AttachedManagedPolicies": [
+        {
+          "PolicyName": "AmazonDynamoDBReadOnlyAccess",
+          "PolicyArn": "arn:aws:iam::aws:policy/AmazonDynamoDBReadOnlyAccess"
+        }
+      ],
+      "AssumeRolePolicyDocument": {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Principal": {
+              "Service": "lambda.amazonaws.com"
+            },
+            "Action": "sts:AssumeRole"
+          }
+        ]
+      }
+    },
+    {
+      "RoleName": "meridian-compliance-role",
+      "Arn": "arn:aws:iam::887412563901:role/meridian-compliance-role",
+      "Path": "/",
+      "CreateDate": "2025-01-15T08:10:00Z",
+      "AttachedManagedPolicies": [
+        {
+          "PolicyName": "AWSLambdaBasicExecutionRole",
+          "PolicyArn": "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+        }
+      ],
+      "AssumeRolePolicyDocument": {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Principal": {
+              "Service": "lambda.amazonaws.com"
+            },
+            "Action": "sts:AssumeRole"
+          }
+        ]
+      }
+    },
+    {
+      "RoleName": "meridian-client-portal-role",
+      "Arn": "arn:aws:iam::887412563901:role/meridian-client-portal-role",
+      "Path": "/",
+      "CreateDate": "2025-01-15T08:15:00Z",
+      "AttachedManagedPolicies": [
+        {
+          "PolicyName": "AWSLambdaBasicExecutionRole",
+          "PolicyArn": "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+        }
+      ],
+      "AssumeRolePolicyDocument": {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Principal": {
+              "Service": "lambda.amazonaws.com"
+            },
+            "Action": "sts:AssumeRole"
+          }
+        ]
+      }
+    }
+  ],
+  "Users": [
+    {
+      "UserName": "meridian-ci-deploy",
+      "Arn": "arn:aws:iam::887412563901:user/meridian-ci-deploy"
+    },
+    {
+      "UserName": "meridian-audit-user",
+      "Arn": "arn:aws:iam::887412563901:user/meridian-audit-user"
+    }
+  ]
+}

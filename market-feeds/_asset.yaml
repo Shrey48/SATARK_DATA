@@ -1,0 +1,3 @@
+asset_id: market-feeds
+connector: github
+tenant: prototype

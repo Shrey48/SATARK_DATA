@@ -1,0 +1,40 @@
+{
+  "Roles": [
+    {
+      "RoleName": "meridian-shipment-lambda-role",
+      "Arn": "arn:aws:iam::884512773061:role/meridian-shipment-lambda-role",
+      "Path": "/",
+      "CreateDate": "2025-03-11T09:24:00Z",
+      "AttachedManagedPolicies": [
+        {
+          "PolicyName": "AWSLambdaBasicExecutionRole",
+          "PolicyArn": "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+        }
+      ]
+    },
+    {
+      "RoleName": "meridian-notification-lambda-role",
+      "Arn": "arn:aws:iam::884512773061:role/meridian-notification-lambda-role",
+      "Path": "/",
+      "CreateDate": "2025-03-11T09:26:00Z",
+      "AttachedManagedPolicies": [
+        {
+          "PolicyName": "AWSLambdaBasicExecutionRole",
+          "PolicyArn": "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+        }
+      ]
+    },
+    {
+      "RoleName": "meridian-readonly-audit-role",
+      "Arn": "arn:aws:iam::884512773061:role/meridian-readonly-audit-role",
+      "Path": "/",
+      "CreateDate": "2025-01-02T15:00:00Z",
+      "AttachedManagedPolicies": [
+        {
+          "PolicyName": "ReadOnlyAccess",
+          "PolicyArn": "arn:aws:iam::aws:policy/ReadOnlyAccess"
+        }
+      ]
+    }
+  ]
+}
